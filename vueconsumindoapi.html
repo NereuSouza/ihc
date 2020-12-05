@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue usando API</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app" class="container">
+
+        <h1>Proveta</h1>
+        <button class="btn btn-primary" v-on:click="trataClique">Veja seu IP</button>
+        <ul>
+            <li v-for="ip in lista"> {{ip}} </li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                lista: []
+            },
+            methods: {
+                trataClique: function() {
+                    fetch('http://ip-api.com/json/?fields=61439')
+                        .then((resposta) => resposta.json())
+                        .then((objetoIp) => {
+
+                            var ip = objetoIp.query;
+                            this.lista.push(ip);
+
+                        })
+
+
+                }
+            }
+        })
+    </script>
+
+    <script src="./js/jquery-3.5.1.slim.min.js "></script>
+    <script src="./js/popper.min.js "></script>
+    <script src="./js/bootstrap.min.js "></script>
+</body>
+
+</html>
